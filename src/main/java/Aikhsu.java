@@ -15,6 +15,8 @@ public class Aikhsu {
 
         Scanner cin = new Scanner(System.in);
         String command = "";
+        String[] tasks = new String[100];
+        int counter = 0;
 
         while(true) {
             command = cin.nextLine();
@@ -23,9 +25,23 @@ public class Aikhsu {
                         "Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________\n");
                 break;
+            } else if (command.equals("list")) {
+                if (counter == 0) {
+                    System.out.println("____________________________________________________________\n" +
+                            "No tasks saved!\n" + "____________________________________________________________\n");
+                } else {
+                    System.out.println("____________________________________________________________\n");
+                    for (int i = 0; i < counter; i++) {
+                        System.out.print(i+1);
+                        System.out.println(". " + tasks[i] + "\n");
+                    }
+                    System.out.println("____________________________________________________________\n");
+                }
             } else {
+                tasks[counter] = command;
+                counter += 1;
                 System.out.println("____________________________________________________________\n" +
-                        command + "\n" +
+                        "added: " + command + "\n" +
                         "____________________________________________________________\n");
             }
         }
