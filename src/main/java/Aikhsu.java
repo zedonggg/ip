@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Aikhsu {
     public static int counter = 0;
 
-    public static Task[] tasks = new Task[100];
+    public static ArrayList<Task> tasks = new ArrayList<>(100);
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -17,9 +18,9 @@ public class Aikhsu {
             if (id >= counter) {
                 throw new ArrayIndexOutOfBoundsException();
             }
-            tasks[id].markAsDone();
+            tasks.get(id).markAsDone();
             printLine();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks[id]);
+            System.out.println("Nice! I've marked this task as done:\n" + tasks.get(id));
             printLine();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
             throw new AikhsuException("Invalid task number!");
@@ -36,9 +37,31 @@ public class Aikhsu {
             if (id >= counter) {
                 throw new ArrayIndexOutOfBoundsException();
             }
-            tasks[id].markNotDone();
+            tasks.get(id).markNotDone();
             printLine();
-            System.out.println("OK, I've marked this task as not done yet:\n" + tasks[id]);
+            System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(id));
+            printLine();
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
+            throw new AikhsuException("Invalid task number!");
+        }
+    }
+
+    public static void deleteTask(String[] segments) throws AikhsuException {
+        if (segments.length < 2) {
+            throw new AikhsuException("Please indicate the task number to delete!");
+        }
+
+        try {
+            int id = Integer.parseInt(segments[1]) - 1;
+            if (id >= counter) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            Task deletedTask = tasks.get(id);
+            tasks.remove(id);
+            counter -= 1;
+            printLine();
+            System.out.println("Noted. I've removed this task:\n" + deletedTask + '\n' +
+                    "Now you have " + counter + " tasks in the list.");
             printLine();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
             throw new AikhsuException("Invalid task number!");
@@ -56,10 +79,10 @@ public class Aikhsu {
             throw new AikhsuException("Deadline description cannot be empty!");
         }
 
-        tasks[counter] = new Deadline(deadlineDescription[1].trim(), deadlineSegments[1].trim());
+        tasks.add(new Deadline(deadlineDescription[1].trim(), deadlineSegments[1].trim()));
         counter += 1;
         printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks[counter-1] + '\n' +
+        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
                 "Now you have " + counter + " tasks in the list.");
         printLine();
     }
@@ -79,10 +102,10 @@ public class Aikhsu {
             throw new AikhsuException("Event description cannot be empty!");
         }
 
-        tasks[counter] = new Event(eventDescription[1], eventFrom[1], eventTo[1]);
+        tasks.add(new Event(eventDescription[1], eventFrom[1], eventTo[1]));
         counter += 1;
         printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks[counter-1] + '\n' +
+        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
                 "Now you have " + counter + " tasks in the list.");
         printLine();
     }
@@ -92,13 +115,14 @@ public class Aikhsu {
         if (todoDescription.length < 2) {
             throw new AikhsuException("Todo description cannot be empty!");
         }
-        tasks[counter] = new Todo(todoDescription[1]);
+        tasks.add(new Todo(todoDescription[1]));
         counter += 1;
         printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks[counter-1] + '\n' +
+        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
                 "Now you have " + counter + " tasks in the list.");
         printLine();
     }
+
     public static void main(String[] args) {
         String logo = "____________________________________________________________\n" +
                 " Hello! I'm Aik Hsu\n" +
@@ -107,7 +131,7 @@ public class Aikhsu {
         System.out.println(logo);
 
         Scanner cin = new Scanner(System.in);
-        String command = "";
+        String command;
 
         while(true) {
             command = cin.nextLine();
@@ -132,7 +156,7 @@ public class Aikhsu {
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < counter; i++) {
                             System.out.print(i+1);
-                            System.out.println(". " + tasks[i]);
+                            System.out.println(". " + tasks.get(i));
                         }
                         printLine();
                     }
@@ -151,6 +175,16 @@ public class Aikhsu {
                 case "unmark":
                     try {
                         unmarkTask(segments);
+                    } catch (AikhsuException e) {
+                        printLine();
+                        System.out.println(e.getMessage());
+                        printLine();
+                    }
+                    break;
+
+                case "delete":
+                    try {
+                        deleteTask(segments);
                     } catch (AikhsuException e) {
                         printLine();
                         System.out.println(e.getMessage());
@@ -193,6 +227,6 @@ public class Aikhsu {
                     System.out.println("Invalid command! Try again!");
                     printLine();
             }
-        }2
+        }
     }
 }
