@@ -1,126 +1,9 @@
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Aikhsu {
-    public static int counter = 0;
-
-    public static ArrayList<Task> tasks = new ArrayList<>(100);
     public static void printLine() {
         System.out.println("____________________________________________________________");
-    }
-
-    public static void markTask(String[] segments) throws AikhsuException {
-        if (segments.length < 2) {
-            throw new AikhsuException("Please indicate the task number to mark!");
-        }
-
-        try {
-            int id = Integer.parseInt(segments[1]) - 1;
-            if (id >= counter) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
-            tasks.get(id).markAsDone();
-            printLine();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks.get(id));
-            printLine();
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
-            throw new AikhsuException("Invalid task number!");
-        }
-    }
-
-    public static void unmarkTask(String[] segments) throws AikhsuException {
-        if (segments.length < 2) {
-            throw new AikhsuException("Please indicate the task number to unmark!");
-        }
-
-        try {
-            int id = Integer.parseInt(segments[1]) - 1;
-            if (id >= counter) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
-            tasks.get(id).markNotDone();
-            printLine();
-            System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(id));
-            printLine();
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
-            throw new AikhsuException("Invalid task number!");
-        }
-    }
-
-    public static void deleteTask(String[] segments) throws AikhsuException {
-        if (segments.length < 2) {
-            throw new AikhsuException("Please indicate the task number to delete!");
-        }
-
-        try {
-            int id = Integer.parseInt(segments[1]) - 1;
-            if (id >= counter) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
-            Task deletedTask = tasks.get(id);
-            tasks.remove(id);
-            counter -= 1;
-            printLine();
-            System.out.println("Noted. I've removed this task:\n" + deletedTask + '\n' +
-                    "Now you have " + counter + " tasks in the list.");
-            printLine();
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException a) {
-            throw new AikhsuException("Invalid task number!");
-        }
-    }
-
-    public static void deadline(String command) throws AikhsuException {
-        String[] deadlineSegments = command.split("/by ", 2);
-        if (deadlineSegments.length < 2) {
-            throw new AikhsuException("Deadline task must have a due date!");
-        }
-
-        String[] deadlineDescription = deadlineSegments[0].split(" ", 2);
-        if (deadlineDescription.length < 2) {
-            throw new AikhsuException("Deadline description cannot be empty!");
-        }
-
-        tasks.add(new Deadline(deadlineDescription[1].trim(), deadlineSegments[1].trim()));
-        counter += 1;
-        printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
-                "Now you have " + counter + " tasks in the list.");
-        printLine();
-    }
-
-    public static void event(String command) throws AikhsuException {
-        String[] eventSegments = command.split("/", 3);
-        if (eventSegments.length < 3) {
-            throw new AikhsuException("Invalid usage. Event task must have from and to date!");
-        }
-        String[] eventFrom = eventSegments[1].split(" ", 2);
-        String[] eventTo = eventSegments[2].split(" ", 2);
-        if (eventFrom.length < 2 || eventTo.length < 2) {
-            throw new AikhsuException("Invalid from or to timing!");
-        }
-        String[] eventDescription = eventSegments[0].split(" ", 2);
-        if (eventDescription.length < 2) {
-            throw new AikhsuException("Event description cannot be empty!");
-        }
-
-        tasks.add(new Event(eventDescription[1], eventFrom[1], eventTo[1]));
-        counter += 1;
-        printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
-                "Now you have " + counter + " tasks in the list.");
-        printLine();
-    }
-
-    public static void todo(String command) throws AikhsuException {
-        String[] todoDescription = command.split(" ", 2);
-        if (todoDescription.length < 2) {
-            throw new AikhsuException("Todo description cannot be empty!");
-        }
-        tasks.add(new Todo(todoDescription[1]));
-        counter += 1;
-        printLine();
-        System.out.println("Got it. I've added this task:\n" + tasks.get(counter-1) + '\n' +
-                "Now you have " + counter + " tasks in the list.");
-        printLine();
     }
 
     public static void main(String[] args) {
@@ -130,7 +13,24 @@ public class Aikhsu {
                 "____________________________________________________________";
         System.out.println(logo);
 
+        //System.out.println(new File("input.txt").getAbsolutePath());
+//        List<String[]> tmp = new ArrayList<>();
+//        try (Scanner scanner = new Scanner(new File("Aikhsu.txt"))) {
+//            while (scanner.hasNextLine()) {
+//                tmp.add(scanner.nextLine().split(", "));
+//            }
+//            for (String[] s : tmp) {
+//                for (String t : s) {
+//                    System.out.print(t);
+//                };
+//                printLine();
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("no file");
+//        }
+
         Scanner cin = new Scanner(System.in);
+        TaskList tasks = new TaskList();
         String command;
 
         while(true) {
@@ -138,7 +38,6 @@ public class Aikhsu {
             String[] segments = command.split(" ");
 
             switch(segments[0]){
-
                 case "bye":
                     printLine();
                     System.out.println("Bye. Hope to see you again soon!");
@@ -147,25 +46,18 @@ public class Aikhsu {
                     return;
 
                 case "list":
-                    if (counter == 0) {
-                        printLine();
-                        System.out.println("No tasks saved!");
-                        printLine();
-                    } else {
-                        printLine();
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < counter; i++) {
-                            System.out.print(i+1);
-                            System.out.println(". " + tasks.get(i));
-                        }
-                        printLine();
-                    }
+                    tasks.listTasks();
                     break;
 
                 case "mark":
+                    if (segments.length < 2) {
+                        System.out.println("Please indicate the task number to mark!");
+                        break;
+                    }
                     try {
-                        markTask(segments);
-                    } catch (AikhsuException e) {
+                        int id = Integer.parseInt(segments[1]);
+                        tasks.markTask(id);
+                    } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
                         printLine();
@@ -173,9 +65,14 @@ public class Aikhsu {
                     break;
 
                 case "unmark":
+                    if (segments.length < 2) {
+                        System.out.println("Please indicate the task number to mark!");
+                        break;
+                    }
                     try {
-                        unmarkTask(segments);
-                    } catch (AikhsuException e) {
+                        int id = Integer.parseInt(segments[1]);
+                        tasks.unmarkTask(id);
+                    } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
                         printLine();
@@ -183,9 +80,15 @@ public class Aikhsu {
                     break;
 
                 case "delete":
+                    if (segments.length < 2) {
+                        System.out.println("Please indicate the task number to mark!");
+                        break;
+                    }
+
                     try {
-                        deleteTask(segments);
-                    } catch (AikhsuException e) {
+                        int id = Integer.parseInt(segments[1]) - 1;
+                        tasks.deleteTask(id);
+                    } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
                         printLine();
@@ -193,33 +96,52 @@ public class Aikhsu {
                     break;
 
                 case "deadline":
-                    try {
-                        deadline(command);
-                    } catch (AikhsuException e) {
-                        printLine();
-                        System.out.println(e.getMessage());
-                        printLine();
+                    String[] deadlineSegments = command.split("/by ", 2);
+                    if (deadlineSegments.length < 2) {
+                        System.out.println("Deadline task must have a due date!");
+                        break;
                     }
+
+                    String[] deadlineDescription = deadlineSegments[0].split(" ", 2);
+                    if (deadlineDescription.length < 2) {
+                        System.out.println("Deadline description cannot be empty!");
+                        break;
+                    }
+
+                    Deadline tmpDeadline = new Deadline(deadlineDescription[1].trim(), deadlineSegments[1].trim());
+                    tasks.addTask(tmpDeadline);
                     break;
 
                 case "todo":
-                    try {
-                        todo(command);
-                    } catch (AikhsuException e) {
-                        printLine();
-                        System.out.println(e.getMessage());
-                        printLine();
+                    String[] todoDescription = command.split(" ", 2);
+                    if (todoDescription.length < 2) {
+                        System.out.println("Todo description cannot be empty!");
+                        break;
                     }
+                    Todo tmpTodo = new Todo(todoDescription[1]);
+                    tasks.addTask(tmpTodo);
                     break;
 
                 case "event":
-                    try {
-                        event(command);
-                    } catch (AikhsuException e) {
-                        printLine();
-                        System.out.println(e.getMessage());
-                        printLine();
+                    String[] eventSegments = command.split("/", 3);
+                    if (eventSegments.length < 3) {
+                        System.out.println("Invalid usage. Event task must have from and to date!");
+                        break;
                     }
+                    String[] eventFrom = eventSegments[1].split(" ", 2);
+                    String[] eventTo = eventSegments[2].split(" ", 2);
+                    if (eventFrom.length < 2 || eventTo.length < 2) {
+                        System.out.println("Invalid from or to timing!");
+                        break;
+                    }
+                    String[] eventDescription = eventSegments[0].split(" ", 2);
+                    if (eventDescription.length < 2) {
+                        System.out.println("Event description cannot be empty!");
+                        break;
+                    }
+
+                    Event tmpEvent = new Event(eventDescription[1], eventFrom[1], eventTo[1]);
+                    tasks.addTask(tmpEvent);
                     break;
 
                 default:
