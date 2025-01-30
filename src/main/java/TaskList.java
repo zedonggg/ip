@@ -10,9 +10,9 @@ public class TaskList {
         this.counter = 0;
     }
 
-    public TaskList(ArrayList<Task> tasks, int size) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.counter = size;
+        this.counter = tasks.size();
     }
 
     public static void printLine() {
@@ -82,5 +82,9 @@ public class TaskList {
             System.out.println(". " + tasks.get(i));
         }
         printLine();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 }

@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Aikhsu {
     public static void printLine() {
@@ -30,7 +31,8 @@ public class Aikhsu {
 //        }
 
         Scanner cin = new Scanner(System.in);
-        TaskList tasks = new TaskList();
+        ArrayList<Task> saved = FileHandler.loadTasks("Aikhsu.txt");
+        TaskList tasks = new TaskList(saved);
         String command;
 
         while(true) {
@@ -42,6 +44,7 @@ public class Aikhsu {
                     printLine();
                     System.out.println("Bye. Hope to see you again soon!");
                     printLine();
+                    FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     cin.close();
                     return;
 
@@ -57,6 +60,7 @@ public class Aikhsu {
                     try {
                         int id = Integer.parseInt(segments[1]);
                         tasks.markTask(id);
+                        FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
@@ -72,6 +76,7 @@ public class Aikhsu {
                     try {
                         int id = Integer.parseInt(segments[1]);
                         tasks.unmarkTask(id);
+                        FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
@@ -88,6 +93,7 @@ public class Aikhsu {
                     try {
                         int id = Integer.parseInt(segments[1]) - 1;
                         tasks.deleteTask(id);
+                        FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     } catch (AikhsuException | NumberFormatException e) {
                         printLine();
                         System.out.println(e.getMessage());
@@ -110,6 +116,7 @@ public class Aikhsu {
 
                     Deadline tmpDeadline = new Deadline(deadlineDescription[1].trim(), deadlineSegments[1].trim());
                     tasks.addTask(tmpDeadline);
+                    FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     break;
 
                 case "todo":
@@ -120,6 +127,7 @@ public class Aikhsu {
                     }
                     Todo tmpTodo = new Todo(todoDescription[1]);
                     tasks.addTask(tmpTodo);
+                    FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     break;
 
                 case "event":
@@ -142,6 +150,7 @@ public class Aikhsu {
 
                     Event tmpEvent = new Event(eventDescription[1], eventFrom[1], eventTo[1]);
                     tasks.addTask(tmpEvent);
+                    FileHandler.saveTasks(tasks, "Aikhsu.txt");
                     break;
 
                 default:
