@@ -1,4 +1,1 @@
-D | true | test | 13 august
-E | true | go to the gym  | 13 august  | 16 august
-T | false | buy milk
-T | false | groceries
+T | false | bake cookies
