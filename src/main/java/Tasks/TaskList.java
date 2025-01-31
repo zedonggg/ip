@@ -1,3 +1,7 @@
+package Tasks;
+
+import Exceptions.AikhsuException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -19,7 +23,7 @@ public class TaskList {
         System.out.println("____________________________________________________________");
     }
 
-    public void deleteTask(int i) throws AikhsuException{
+    public void deleteTask(int i) throws AikhsuException {
         try {
             Task tmp = this.tasks.get(i);
             this.tasks.remove(i);

@@ -1,6 +1,10 @@
+package Commands;
+
+import Exceptions.AikhsuException;
+
 public class UnmarkCommand extends Command {
     private static final String INVALID_INDEX_MESSAGE = "Please provide a number!";
-    private static final String TASK_NOT_EXISTS_MESSAGE = "Task does not exist!";
+    private static final String TASK_NOT_EXISTS_MESSAGE = "Tasks.Task does not exist!";
     private final String indexString;
 
     public UnmarkCommand(String indexString) {
@@ -17,6 +21,6 @@ public class UnmarkCommand extends Command {
         } catch (AikhsuException e) {
             return new CommandResult(TASK_NOT_EXISTS_MESSAGE);
         }
-        return new CommandResult("Task unmarked successfully!");
+        return new CommandResult("Tasks.Task unmarked successfully!");
     }
 }

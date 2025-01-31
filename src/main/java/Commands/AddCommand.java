@@ -1,13 +1,24 @@
+package Commands;
+
+import Commands.Command;
+import Commands.CommandResult;
+import Exceptions.AikhsuException;
+import Handlers.DateTimeParser;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Todo;
+import Tasks.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class AddCommand extends Command{
-    private static final String NO_COMMAND_BODY_MESSAGE = "Task body cannot be empty!";
-    private static final String DEADLINE_FORMAT_MESSAGE = "Deadline task format: deadline <task name> " +
+public class AddCommand extends Command {
+    private static final String NO_COMMAND_BODY_MESSAGE = "Tasks.Task body cannot be empty!";
+    private static final String DEADLINE_FORMAT_MESSAGE = "Tasks.Deadline task format: deadline <task name> " +
             "/by DD/MM/YYYY HH:MM";
-    private static final String EVENT_FORMAT_MESSAGE = "Event task format: event <task name> " +
+    private static final String EVENT_FORMAT_MESSAGE = "Tasks.Event task format: event <task name> " +
             "/from DD/MM/YYYY HH:MM /to HH:MM";
-    private static final String INVALID_COMMAND_MESSAGE = "Command not recognised!";
+    private static final String INVALID_COMMAND_MESSAGE = "Commands.Command not recognised!";
     private final String commandType;
     private final String commandString;
 
@@ -38,11 +49,11 @@ public class AddCommand extends Command{
             } catch (AikhsuException e) {
                 return new CommandResult(e.getMessage());
             }
-            return new CommandResult("Deadline task successfully added!");
+            return new CommandResult("Tasks.Deadline task successfully added!");
         case "todo":
             Todo tmpTodo = new Todo(commandBody);
             tasks.addTask(tmpTodo);
-            return new CommandResult("Todo task successfully added!");
+            return new CommandResult("Tasks.Todo task successfully added!");
         case "event":
             String[] eventSegments = commandString.split(" /from ", 2);
             if (eventSegments.length < 2) {
@@ -62,7 +73,7 @@ public class AddCommand extends Command{
             } catch (AikhsuException e) {
                 return new CommandResult(e.getMessage());
             }
-            return new CommandResult("Event task successfully added!");
+            return new CommandResult("Tasks.Event task successfully added!");
         default:
             return new CommandResult(INVALID_COMMAND_MESSAGE);
         }

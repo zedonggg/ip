@@ -1,3 +1,5 @@
+package Commands;
+
 public class CommandParser {
     public static Command parseCommand(String commandString) {
         String[] segments = commandString.split(" ");
@@ -26,7 +28,7 @@ public class CommandParser {
         case "event":
             return new AddCommand(segments[0], commandString);
         default:
-            return new DefaultCommand("Command not recognised!");
+            return new DefaultCommand("Commands.Command not recognised!");
         }
 
     }

@@ -1,3 +1,7 @@
+package Commands;
+
+import Tasks.TaskList;
+
 public abstract class Command {
 
     protected TaskList tasks;
