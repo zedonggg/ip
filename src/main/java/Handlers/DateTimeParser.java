@@ -8,7 +8,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing date and time strings into Java time objects.
+ * Provides methods to convert formatted date/time strings into {@code LocalDateTime}, {@code LocalDate}, and {@code LocalTime}.
+ */
 public class DateTimeParser {
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object.
+     *
+     * @param dateTime The date-time string to be parsed, expected in the format {@code dd/MM/yyyy HH:mm}.
+     * @return A {@code LocalDateTime} object representing the parsed date and time.
+     * @throws AikhsuException If the input format is invalid.
+     */
     public static LocalDateTime parseDateTime(String dateTime) throws AikhsuException {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
@@ -18,6 +29,13 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Parses a date string into a {@code LocalDate} object.
+     *
+     * @param date The date string to be parsed, expected in the format {@code dd/MM/yyyy}.
+     * @return A {@code LocalDate} object representing the parsed date.
+     * @throws AikhsuException If the input format is invalid.
+     */
     public static LocalDate parseDate(String date) throws AikhsuException {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
@@ -27,6 +45,13 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Parses a time string into a {@code LocalTime} object.
+     *
+     * @param time The time string to be parsed, expected in the format {@code HH:mm}.
+     * @return A {@code LocalTime} object representing the parsed time.
+     * @throws AikhsuException If the input format is invalid.
+     */
     public static LocalTime parseTime(String time) throws AikhsuException {
         try {
             return LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
