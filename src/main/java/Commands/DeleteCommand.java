@@ -21,6 +21,6 @@ public class DeleteCommand extends Command {
         } catch (AikhsuException e) {
             return new CommandResult(TASK_NOT_EXISTS_MESSAGE);
         }
-        return new CommandResult("Tasks.Task deleted successfully!");
+        return new CommandResult("Task deleted successfully!");
     }
 }

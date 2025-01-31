@@ -23,6 +23,11 @@ public class CommandParser {
                 return new DefaultCommand("Please indicate the task number to delete!");
             }
             return new DeleteCommand(segments[1]);
+        case "find":
+            if (segments.length < 2) {
+                return new DefaultCommand("Please type the task you want to find!");
+            }
+            return new FindCommand(segments[1]);
         case "deadline":
         case "todo":
         case "event":

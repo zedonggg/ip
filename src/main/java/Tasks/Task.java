@@ -32,4 +32,8 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    public String getDescription() {
+        return this.description;
+    }
 }

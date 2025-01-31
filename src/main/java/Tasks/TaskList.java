@@ -1,5 +1,6 @@
 package Tasks;
 
+import Commons.Utils;
 import Exceptions.AikhsuException;
 
 import java.util.ArrayList;
@@ -82,10 +83,26 @@ public class TaskList {
 
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < counter; i++) {
-            System.out.print(i+1);
+            System.out.print(i + 1);
             System.out.println(". " + tasks.get(i));
         }
         printLine();
+    }
+
+    public void findTasks(String finder) {
+        Utils.printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (int i = 0; i < counter; i++) {
+            Task tmp = tasks.get(i);
+            if (!tmp.getDescription().contains(finder)) {
+                continue;
+            }
+            System.out.print(index);
+            index += 1;
+            System.out.println(". " + tmp);
+        }
+        Utils.printLine();
     }
 
     public ArrayList<Task> getTasks() {
