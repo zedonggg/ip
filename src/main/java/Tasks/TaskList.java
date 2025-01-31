@@ -82,7 +82,7 @@ public class TaskList {
 
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < counter; i++) {
-            System.out.print(i+1);
+            System.out.print(i + 1);
             System.out.println(". " + tasks.get(i));
         }
         printLine();

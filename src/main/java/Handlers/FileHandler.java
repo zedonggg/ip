@@ -52,32 +52,32 @@ public class FileHandler {
         }
 
         switch(segments[0]) {
-            case "T":
-                return new Todo(segments[2], segments[1].equals("true"));
-            case "D":
-                if (segments.length < 4) {
-                    return null;
-                }
-                try {
-                    LocalDateTime deadlineDateTime = DateTimeParser.parseDateTime(segments[3]);
-                    return new Deadline(segments[2], segments[1].equals("true"), segments[3], deadlineDateTime);
-                } catch (AikhsuException e) {
-                    return null;
-                }
-
-            case "E":
-                if (segments.length < 5) {
-                    return null;
-                }
-                try {
-                    LocalDateTime eventDateTime = DateTimeParser.parseDateTime(segments[3]);
-                    LocalTime eventTime = DateTimeParser.parseTime(segments[4]);
-                    return new Event(segments[2], segments[1].equals("true"), segments[3], segments[4], eventDateTime, eventTime);
-                } catch (AikhsuException e) {
-                    return null;
-                }
-            default:
+        case "T":
+            return new Todo(segments[2], segments[1].equals("true"));
+        case "D":
+            if (segments.length < 4) {
                 return null;
+            }
+            try {
+                LocalDateTime deadlineDateTime = DateTimeParser.parseDateTime(segments[3]);
+                return new Deadline(segments[2], segments[1].equals("true"), segments[3], deadlineDateTime);
+            } catch (AikhsuException e) {
+                return null;
+            }
+
+        case "E":
+            if (segments.length < 5) {
+                return null;
+            }
+            try {
+                LocalDateTime eventDateTime = DateTimeParser.parseDateTime(segments[3]);
+                LocalTime eventTime = DateTimeParser.parseTime(segments[4]);
+                return new Event(segments[2], segments[1].equals("true"), segments[3], segments[4], eventDateTime, eventTime);
+            } catch (AikhsuException e) {
+                return null;
+            }
+        default:
+            return null;
         }
     }
 
