@@ -1,3 +1,5 @@
+package Commands;
+
 public class DefaultCommand extends Command{
     String commandMessage;
 

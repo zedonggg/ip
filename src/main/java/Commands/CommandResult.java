@@ -1,3 +1,5 @@
+package Commands;
+
 public class CommandResult {
     public String commandOutput;
 

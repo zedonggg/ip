@@ -1,3 +1,5 @@
+package Commands;
+
 public class ExitCommand extends Command{
     @Override
     public CommandResult execute() {

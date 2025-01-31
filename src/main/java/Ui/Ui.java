@@ -1,3 +1,7 @@
+package Ui;
+
+import Commons.Utils;
+
 import java.util.Scanner;
 
 public class Ui {
