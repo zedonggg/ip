@@ -13,6 +13,8 @@ public class Aikhsu {
         new Aikhsu("Aikhsu.txt").run();
     }
 
+
+
     public Aikhsu(String filepath) {
         this.tasks = new TaskList(FileHandler.loadTasks(filepath));
         this.filepath = filepath;
@@ -24,6 +26,10 @@ public class Aikhsu {
         CommandResult r = c.execute();
         FileHandler.saveTasks(this.tasks, this.filepath);
         return r;
+    }
+    public CommandResult visualUI(String input) {
+        Command c = CommandParser.parseCommand(input.strip());
+        return runCommand(c);
     }
     private void run() {
         ui.printHello();

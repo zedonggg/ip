@@ -1,7 +1,7 @@
 package Commons;
 
 public class Utils {
-    private static final String DIVIDER = "____________________________________________________________";
+    public static final String DIVIDER = "____________________________________________________________\n";
 
     public static void printLine() {
         System.out.println(DIVIDER);
