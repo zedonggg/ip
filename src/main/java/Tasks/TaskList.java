@@ -35,15 +35,18 @@ public class TaskList {
      * @param i The index of the task to delete.
      * @throws AikhsuException If the index is out of bounds.
      */
-    public void deleteTask(int i) throws AikhsuException {
+    public String deleteTask(int i) throws AikhsuException {
         try {
             Task tmp = this.tasks.get(i);
             this.tasks.remove(i);
             counter -= 1;
-            Utils.printLine();
-            System.out.println("Noted. I've removed this task:\n" + tmp + '\n' +
-                    "Now you have " + counter + " tasks in the list.");
-            Utils.printLine();
+            String taskStr = "Noted. I've removed this task:\n" + tmp + '\n' +
+                    "Now you have " + counter + " tasks in the list.\n";
+            return taskStr;
+//            Utils.printLine();
+//            System.out.println("Noted. I've removed this task:\n" + tmp + '\n' +
+//                    "Now you have " + counter + " tasks in the list.");
+//            Utils.printLine();
         } catch (IndexOutOfBoundsException e) {
             throw new AikhsuException("Invalid task number!");
         }
@@ -56,14 +59,16 @@ public class TaskList {
      * @param i The index of the task to mark as done.
      * @throws AikhsuException If the index is out of bounds.
      */
-    public void markTask(int i) throws AikhsuException {
+    public String markTask(int i) throws AikhsuException {
         try {
             i -= 1;
             Task tmp = this.tasks.get(i);
             tmp.markAsDone();
-            Utils.printLine();
-            System.out.println("Nice! I've marked this task as done:\n" + tmp);
-            Utils.printLine();
+            String taskStr = "Nice! I've marked this task as done:\n" + tmp + "\n";
+            return taskStr;
+//            Utils.printLine();
+//            System.out.println("Nice! I've marked this task as done:\n" + tmp);
+//            Utils.printLine();
         } catch (IndexOutOfBoundsException e) {
             throw new AikhsuException("Invalid task number!");
         }
@@ -76,14 +81,16 @@ public class TaskList {
      * @param i The index of the task to mark as not done.
      * @throws AikhsuException If the index is out of bounds.
      */
-    public void unmarkTask(int i) throws AikhsuException {
+    public String unmarkTask(int i) throws AikhsuException {
         try {
             i -= 1;
             Task tmp = this.tasks.get(i);
             tmp.markNotDone();
-            Utils.printLine();
-            System.out.println("OK, I've marked this task as not done yet:\n" + tmp);
-            Utils.printLine();
+            String taskStr = "OK, I've marked this task as not done yet:\n" + tmp + "\n";
+//            Utils.printLine();
+//            System.out.println("OK, I've marked this task as not done yet:\n" + tmp);
+//            Utils.printLine();
+            return taskStr;
         } catch (IndexOutOfBoundsException e) {
             throw new AikhsuException("Invalid task number!");
         }
@@ -94,48 +101,55 @@ public class TaskList {
      *
      * @param t The task to add to the TaskList.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.tasks.add(t);
         counter += 1;
-        Utils.printLine();
-        System.out.println("Got it. I've added this task:\n" + t + '\n' +
-                "Now you have " + counter + " tasks in the list.");
-        Utils.printLine();
+        String taskStr = "Got it. I've added this task:\n" + t + '\n' +
+                "Now you have " + counter + " tasks in the list.\n";
+//        Utils.printLine();
+//        System.out.println("Got it. I've added this task:\n" + t + '\n' +
+//                "Now you have " + counter + " tasks in the list.");
+//        Utils.printLine();
+        return taskStr;
     }
 
     /**
      * Lists all tasks in the TaskList. If no tasks are present, prints a message indicating so.
      */
-    public void listTasks() {
-        Utils.printLine();
+    public String listTasks() {
+        String taskStr;
         if (counter == 0) {
-            System.out.println("No tasks saved!");
-            Utils.printLine();
-            return;
+            taskStr = "No tasks saved!\n";
+            return taskStr;
         }
-
-        System.out.println("Here are the tasks in your list:");
+        taskStr = "Here are the tasks in your list:\n";
+//        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < counter; i++) {
-            System.out.print(i + 1);
-            System.out.println(". " + tasks.get(i));
+            taskStr += (i+1) + ". " + tasks.get(i) + "\n";
+//            System.out.print(i + 1);
+//            System.out.println(". " + tasks.get(i));
         }
-        Utils.printLine();
+        return taskStr;
     }
 
-    public void findTasks(String finder) {
-        Utils.printLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTasks(String finder) {
+        String taskStr = "Here are the matching tasks in your list:\n";
+//        Utils.printLine();
+//        System.out.println("Here are the matching tasks in your list:");
         int index = 1;
         for (int i = 0; i < counter; i++) {
             Task tmp = tasks.get(i);
             if (!tmp.getDescription().contains(finder)) {
                 continue;
             }
-            System.out.print(index);
+            String tmpStr = index + ". " + tmp + "\n";
+            taskStr += tmpStr;
+//            System.out.print(index);
             index += 1;
-            System.out.println(". " + tmp);
+//            System.out.println(". " + tmp);
         }
-        Utils.printLine();
+//        Utils.printLine();
+        return taskStr;
     }
 
     /**

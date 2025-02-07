@@ -33,7 +33,7 @@ public class CommandParser {
         case "event":
             return new AddCommand(segments[0], commandString);
         default:
-            return new DefaultCommand("Commands.Command not recognised!");
+            return new DefaultCommand("Command not recognised!");
         }
 
     }

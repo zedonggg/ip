@@ -15,12 +15,12 @@ public class MarkCommand extends Command {
     public CommandResult execute() {
         try {
             int id = Integer.parseInt(indexString);
-            this.tasks.markTask(id);
+            return new CommandResult(this.tasks.markTask(id));
         } catch (NumberFormatException e) {
             return new CommandResult(INVALID_INDEX_MESSAGE);
         } catch (AikhsuException e) {
             return new CommandResult(TASK_NOT_EXISTS_MESSAGE);
         }
-        return new CommandResult("Tasks.Task marked successfully!");
+
     }
 }

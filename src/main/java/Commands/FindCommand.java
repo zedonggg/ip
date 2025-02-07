@@ -9,7 +9,6 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        this.tasks.findTasks(finder);
-        return new CommandResult("Command executed successfully!");
+        return new CommandResult(this.tasks.findTasks(finder));
     }
 }

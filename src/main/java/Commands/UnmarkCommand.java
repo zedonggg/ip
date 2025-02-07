@@ -15,12 +15,11 @@ public class UnmarkCommand extends Command {
     public CommandResult execute() {
         try {
             int id = Integer.parseInt(indexString);
-            this.tasks.unmarkTask(id);
+            return new CommandResult(this.tasks.unmarkTask(id));
         } catch (NumberFormatException e) {
             return new CommandResult(INVALID_INDEX_MESSAGE);
         } catch (AikhsuException e) {
             return new CommandResult(TASK_NOT_EXISTS_MESSAGE);
         }
-        return new CommandResult("Tasks.Task unmarked successfully!");
     }
 }
