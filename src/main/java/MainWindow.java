@@ -1,5 +1,5 @@
-import Commands.CommandResult;
-import Commands.ExitCommandResult;
+import commands.CommandResult;
+import commands.ExitCommandResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

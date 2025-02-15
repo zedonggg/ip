@@ -1,6 +1,7 @@
 T | false | bake cookies
 E | false | deadline | 21/01/2002 19:00 | 21:59
 D | true | clean room clean room | 21/08/2015 19:00
-E | false | event fly high | 21/08/2002 19:00 | 13:00
 D | false | sdjfsdfslkdf | 21/08/2002 21:00
 D | false | juny | 21/08/2002 19:00
+D | false | january | 21/08/2002 19:00
+E | false | event valetnines | 14/02/2002 19:00 | 21:00
