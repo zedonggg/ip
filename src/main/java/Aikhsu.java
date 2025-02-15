@@ -1,7 +1,7 @@
-import Commands.*;
-import Handlers.FileHandler;
-import Tasks.TaskList;
-import Ui.Ui;
+import commands.*;
+import handlers.FileHandler;
+import tasks.TaskList;
+import ui.Ui;
 
 public class Aikhsu {
     private Ui ui;
