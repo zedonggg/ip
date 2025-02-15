@@ -8,6 +8,7 @@ public class MarkCommand extends Command {
     private final String indexString;
 
     public MarkCommand(String indexString) {
+        assert indexString != null && !indexString.trim().isEmpty() : "Command cannot be null or empty!";
         this.indexString = indexString.strip();
     }
 

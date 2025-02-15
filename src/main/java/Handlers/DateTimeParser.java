@@ -37,6 +37,7 @@ public class DateTimeParser {
      * @throws AikhsuException If the input format is invalid.
      */
     public static LocalDate parseDate(String date) throws AikhsuException {
+        assert date != null && !date.trim().isEmpty() : "Date cannot be null or empty!";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             return LocalDate.parse(date, format);
@@ -53,6 +54,7 @@ public class DateTimeParser {
      * @throws AikhsuException If the input format is invalid.
      */
     public static LocalTime parseTime(String time) throws AikhsuException {
+        assert time != null && !time.trim().isEmpty() : "Date cannot be null or empty!";
         try {
             return LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         } catch (DateTimeParseException e) {
