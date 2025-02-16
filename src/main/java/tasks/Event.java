@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -83,5 +84,9 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E" + " | " + super.isDone + " | " + super.description + " | " + from + " | " + to;
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.fromDateTime;
     }
 }

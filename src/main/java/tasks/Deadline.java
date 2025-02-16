@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -67,5 +68,9 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D" + " | " + super.isDone + " | " + super.description + " | " + by;
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
     }
 }
