@@ -28,6 +28,11 @@ public class CommandParser {
                 return new DefaultCommand("Please type the task you want to find!");
             }
             return new FindCommand(segments[1]);
+        case "findbydate":
+            if (segments.length < 2) {
+                return new DefaultCommand("Please indicate the date with the format DD/MM/YYYY");
+            }
+            return new FindDateCommand(segments[1]);
         case "deadline":
         case "todo":
         case "event":

@@ -1,8 +1,12 @@
 package tasks;
 
 import exceptions.AikhsuException;
+import javafx.util.Pair;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -127,6 +131,44 @@ public class TaskList {
             index += 1;
         }
         return taskStr;
+    }
+
+    public String findTasksByDate(LocalDate date) {
+        ArrayList<Pair<Task, LocalDateTime>> res = new ArrayList<>();
+
+        for (Task tmp : tasks) {
+            if (!(tmp instanceof Deadline) && !(tmp instanceof Event)) {
+                continue;
+            }
+
+            LocalDateTime tmpDateTime = null;
+            if (tmp instanceof Deadline) {
+                Deadline deadlineTmp = (Deadline) tmp;
+                tmpDateTime = deadlineTmp.getDateTime();
+            }
+            if (tmp instanceof Event) {
+                Event eventTmp = (Event) tmp;
+                tmpDateTime = eventTmp.getDateTime();
+            }
+
+            if (tmpDateTime == null || !(tmpDateTime.toLocalDate().equals(date))) {
+                continue;
+            }
+
+            res.add(new Pair<>(tmp, tmpDateTime));
+        }
+
+        if (res.isEmpty()) {
+            return "There are no tasks on that Date!\n";
+        }
+
+        res.sort((d1, d2) -> d1.getValue().compareTo(d2.getValue()));
+        String resString = "Here are your tasks for " + date + ":\n";
+        for (int i = 0; i < res.size(); i++) {
+            Task tmp = res.get(i).getKey();
+            resString += tmp + "\n";
+        }
+        return resString;
     }
 
     /**
