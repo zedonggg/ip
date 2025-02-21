@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * Represents a simple "Todo" task, a basic type of task with a description and completion status.
+ * Extends the Task class to inherit common task functionality.
+ */
 public class Todo extends Task {
     /**
      * Constructs a Todo task with the given description.
@@ -34,7 +38,6 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the Todo task suitable for saving to a file.
-     * The format is "T | <isDone> | <description>".
      *
      * @return A string representation of the Todo task for file storage.
      */

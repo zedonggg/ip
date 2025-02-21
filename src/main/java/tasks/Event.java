@@ -1,6 +1,5 @@
 package tasks;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -57,7 +56,8 @@ public class Event extends Task {
      * @param fromDateTime The start date and time of the event.
      * @param toTime       The end time of the event.
      */
-    public Event(String description, boolean isDone, String from, String to, LocalDateTime fromDateTime, LocalTime toTime) {
+    public Event(String description, boolean isDone, String from, String to,
+                 LocalDateTime fromDateTime, LocalTime toTime) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -72,7 +72,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"))
+        return "[E]" + super.toString() + " (from: "
+                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"))
                 + " to: " + toTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
     }
 

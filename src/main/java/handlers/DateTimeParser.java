@@ -1,15 +1,17 @@
 package handlers;
 
-import exceptions.AikhsuException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exceptions.AikhsuException;
+
 /**
  * Utility class for parsing date and time strings into Java time objects.
- * Provides methods to convert formatted date/time strings into {@code LocalDateTime}, {@code LocalDate}, and {@code LocalTime}.
+ * Provides methods to convert formatted date/time strings into {@code LocalDateTime},
+ * {@code LocalDate}, and {@code LocalTime}.
  */
 public class DateTimeParser {
     /**
@@ -24,7 +26,8 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(dateTime, format);
         } catch (DateTimeParseException e) {
-            throw new AikhsuException("Invalid date and time format! Format must be in the form dd/mm/yyyy xx:xx eg 01/01/2025 16:59");
+            throw new AikhsuException("Invalid date and time format! "
+                    + "Format must be in the form dd/mm/yyyy xx:xx eg 01/01/2025 16:59");
         }
     }
 

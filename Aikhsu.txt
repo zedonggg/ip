@@ -1,6 +1,6 @@
 D | false | january | 21/08/2002 19:00
 E | false | event valetnines | 14/02/2002 19:00 | 21:00
-E | true | event valentines | 14/02/2025 16:00 | 21:00
+E | false | event valentines | 14/02/2025 16:00 | 21:00
 T | false | valentines
 D | false | valentines | 14/02/2025 19:00
 E | false | event valentines2 | 14/02/2025 10:00 | 20:00

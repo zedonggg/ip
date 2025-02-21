@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         CommandResult res = aikhsu.visualUI(input);
-        String response = res.commandOutput;
+        String response = res.getCommandOutput();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

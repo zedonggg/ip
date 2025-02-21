@@ -1,17 +1,22 @@
 package handlers;
 
-import exceptions.AikhsuException;
-import tasks.TaskList;
-import tasks.Task;
-import tasks.Todo;
-import tasks.Deadline;
-import tasks.Event;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exceptions.AikhsuException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Todo;
 
 /**
  * Handles file operations for saving and loading tasks.
@@ -98,7 +103,8 @@ public class FileHandler {
             try {
                 LocalDateTime eventDateTime = DateTimeParser.parseDateTime(segments[3]);
                 LocalTime eventTime = DateTimeParser.parseTime(segments[4]);
-                return new Event(segments[2], segments[1].equals("true"), segments[3], segments[4], eventDateTime, eventTime);
+                return new Event(segments[2], segments[1].equals("true"), segments[3],
+                        segments[4], eventDateTime, eventTime);
             } catch (AikhsuException e) {
                 return null;
             }

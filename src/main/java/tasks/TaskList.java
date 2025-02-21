@@ -1,13 +1,15 @@
 package tasks;
 
-import exceptions.AikhsuException;
-import javafx.util.Pair;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
+import exceptions.AikhsuException;
+import javafx.util.Pair;
+
+/**
+ * Manages a list of tasks, providing functionality to add, delete, mark, unmark, list, and search tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -43,8 +45,9 @@ public class TaskList {
             Task tmp = this.tasks.get(i);
             this.tasks.remove(i);
             counter -= 1;
-            String taskStr = "Noted. I've removed this task:\n" + tmp + '\n' +
-                    "Now you have " + counter + " tasks in the list.\n";
+            String taskStr = "Noted. I've removed this task:\n"
+                    + tmp + '\n'
+                    + "Now you have " + counter + " tasks in the list.\n";
             return taskStr;
         } catch (IndexOutOfBoundsException e) {
             throw new AikhsuException("Invalid task number!");
@@ -97,8 +100,8 @@ public class TaskList {
     public String addTask(Task t) {
         this.tasks.add(t);
         counter += 1;
-        String taskStr = "Got it. I've added this task:\n" + t + '\n' +
-                "Now you have " + counter + " tasks in the list.\n";
+        String taskStr = "Got it. I've added this task:\n" + t + '\n'
+                + "Now you have " + counter + " tasks in the list.\n";
         return taskStr;
     }
 
@@ -113,11 +116,17 @@ public class TaskList {
         }
         taskStr = "Here are the tasks in your list:\n";
         for (int i = 0; i < counter; i++) {
-            taskStr += (i+1) + ". " + tasks.get(i) + "\n";
+            taskStr += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return taskStr;
     }
 
+    /**
+     * Finds and lists tasks whose descriptions contain the specified search string.
+     *
+     * @param finder The string to search for in task descriptions.
+     * @return A string listing the matching tasks, or a message if none are found.
+     */
     public String findTasks(String finder) {
         String taskStr = "Here are the matching tasks in your list:\n";
         int index = 1;
@@ -133,6 +142,13 @@ public class TaskList {
         return taskStr;
     }
 
+    /**
+     * Finds and lists tasks scheduled for the specified date (for Deadline and Event tasks).
+     * Tasks are sorted by their date and time.
+     *
+     * @param date The date to search for tasks.
+     * @return A string listing the tasks for the given date, or a message if none are found.
+     */
     public String findTasksByDate(LocalDate date) {
         ArrayList<Pair<Task, LocalDateTime>> res = new ArrayList<>();
 
