@@ -7,7 +7,7 @@ import exceptions.AikhsuException;
  */
 public class MarkCommand extends Command {
     private static final String INVALID_INDEX_MESSAGE = "Please provide a number!";
-    private static final String TASK_NOT_EXISTS_MESSAGE = "Tasks.Task does not exist!";
+    private static final String TASK_NOT_EXISTS_MESSAGE = "Task does not exist!";
     private final String indexString;
 
     /**
