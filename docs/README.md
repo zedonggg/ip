@@ -1,30 +1,30 @@
-# Duke User Guide
+# AikHsu Bot
 
-// Update the title above to match the actual product name
+This is a simple tasks record bot named after my friend Aik Hsu. It is able to provide simple *create-read-update-delete* functionality through a GUI interface. The usage instructions are as follows:
 
-// Product screenshot goes here
+## Setting up
 
-// Product intro goes here
+Prerequisites: JDK 17
 
-## Adding deadlines
+1. Download the latest release (here)[https://github.com/zedonggg/ip/releases]
+2. Run using `java -jar Aikhsu.jar`
 
-// Describe the action and its outcome.
+## Features
+Aikhsu provides support for 3 types of tasks using the specified command format as shown below:
+1. Todo tasks using the command `todo [name]`
+2. Deadline tasks using the command `deadline [name] /by [DD/MM/YYYY] [hh:mm]`
+3. Event tasks using the command `event [name] /from [DD/MM/YYYY] [hh:mm] /to [hh:mm]`
 
-// Give examples of usage
+Tasks are automatically saved to an `Aikhsu.txt` file in the same directory as the `jar` file.
 
-Example: `keyword (optional arguments)`
+Other helpful functions:
+- `list` : lists out current task
+- `mark [number]` : marks the specified task as done
+- `unmark [number]` : marks the specified task as not done
+- `bye` : exits the program
+- `delete [number]` : deletes the specified task
+- `find [task]` : searches for all tasks that matches the provided string task name
+- `findbydate [DD/MM/YYYY]` : lists all tasks on the given date
 
-// A description of the expected outcome goes here
+Enjoy!
 
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
